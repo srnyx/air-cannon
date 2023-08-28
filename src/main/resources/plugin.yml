@@ -1,0 +1,9 @@
+name: ${name}
+description: ${description}
+authors:
+  - srnyx
+website: https://srnyx.com
+
+main: ${group}.name.Name
+version: ${version}
+api-version: 1.13
