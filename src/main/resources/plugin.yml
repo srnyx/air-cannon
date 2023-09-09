@@ -4,6 +4,15 @@ authors:
   - srnyx
 website: https://srnyx.com
 
-main: ${group}.name.Name
+main: ${group}.aircannon.AirCannon
 version: ${version}
 api-version: 1.13
+
+commands:
+  aircannon:
+    description: "Give yourself or someone else an Air Cannon"
+    permission: "aircannon.give"
+
+permissions:
+  aircannon.give:
+    description: "Allows access to /aircannon"

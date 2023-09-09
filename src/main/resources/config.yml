@@ -1,0 +1,46 @@
+DOCUMENTATION: https://annoying-api.srnyx.com/wiki/File-objects
+
+
+# Amount of time (in milliseconds) between each set of uses of the Air Cannon
+# 0 = no cooldown (infinite uses)
+cooldown: 300 # milliseconds
+
+# Amount of uses of the Air Cannon before it goes on cooldown
+# For infinite uses, set cooldown to 0
+uses: 1 # per cooldown
+
+# The multiplier for the player's velocity when using the Air Cannon
+# Default: 1.5
+power: 1.5 # multiplier
+
+# The sound that's played whenever the Air Cannon is used
+sound: # SOUND (read documentation)
+  enabled: true
+  sound: BLOCK_HONEY_BLOCK_PLACE
+
+# The recipe of the Air Cannon, the 'result' is always used as the Air Cannon item
+recipe: # RECIPE (read documentation)
+  # Whether the Air Cannon should be craftable (REQUIRES A RESTART)
+  enabled: true
+  ingredients:
+    B: GLASS_BOTTLE
+    I: IRON_INGOT
+    D: DIAMOND
+  shape:
+    - BIB
+    - BDB
+    - BIB
+  shapeless: false
+  # This is always used as the Air Cannon item no matter if the recipe is enabled or not
+  result:
+    material: IRON_HOE
+    name: "&f&lAir Cannon"
+    lore:
+      - "&7Right-click to boost forward"
+      - "&7Left-click to boost backward"
+    enchantments:
+      DURABILITY: 1
+    unbreakable: true
+    flags:
+      - HIDE_ENCHANTS
+      - HIDE_UNBREAKABLE
