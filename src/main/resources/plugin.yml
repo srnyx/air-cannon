@@ -10,9 +10,9 @@ api-version: 1.13
 
 commands:
   aircannon:
-    description: "Give yourself or someone else an Air Cannon"
-    permission: "aircannon.give"
+    description: "Give/reload the Air Cannon plugin"
+    permission: "aircannon.command"
 
 permissions:
-  aircannon.give:
+  aircannon.command:
     description: "Allows access to /aircannon"
