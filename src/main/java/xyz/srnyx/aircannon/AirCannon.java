@@ -4,6 +4,9 @@ import org.bukkit.Bukkit;
 
 import org.jetbrains.annotations.NotNull;
 
+import xyz.srnyx.aircannon.commands.AirCannonCmd;
+import xyz.srnyx.aircannon.listeners.PlayerListener;
+
 import xyz.srnyx.annoyingapi.AnnoyingPlugin;
 
 
@@ -11,9 +14,9 @@ public class AirCannon extends AnnoyingPlugin {
     @NotNull public AirConfig config = new AirConfig(this);
 
     public AirCannon() {
-        options.registrationOptions.automaticRegistration.packages(
-                "xyz.srnyx.aircannon.commands",
-                "xyz.srnyx.aircannon.listeners");
+        options.registrationOptions
+                .commandsToRegister(new AirCannonCmd(this))
+                .listenersToRegister(new PlayerListener(this));
     }
 
     @Override
