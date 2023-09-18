@@ -1,6 +1,8 @@
 # Air Cannon
 
-Fundy's Air Cannon item but as a plugin for your server!
+[Fundy's Air Cannon](https://youtube.com/watch?v=o6JQknd3JRk&t=507s) item but as a plugin for your server!
+
+Credit for the idea/name goes to Fundy (or I guess his viewer?)! Check out his video here: https://youtube.com/watch?v=o6JQknd3JRk
 
 **🐛 Bugs / 💡 Suggestions:** Please [open an issue](https://github.com/srnyx/air-cannon/issues/new/choose) to report a bug or suggest an idea
 
