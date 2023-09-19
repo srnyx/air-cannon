@@ -8,13 +8,20 @@ import xyz.srnyx.aircannon.commands.AirCannonCmd;
 import xyz.srnyx.aircannon.listeners.PlayerListener;
 
 import xyz.srnyx.annoyingapi.AnnoyingPlugin;
+import xyz.srnyx.annoyingapi.PluginPlatform;
 
 
 public class AirCannon extends AnnoyingPlugin {
     @NotNull public AirConfig config = new AirConfig(this);
 
     public AirCannon() {
-        options.registrationOptions
+        options
+                .pluginOptions(pluginOptions -> pluginOptions.updatePlatforms(
+                        PluginPlatform.modrinth("air-cannon"),
+                        PluginPlatform.hangar(this, "srnyx"),
+                        PluginPlatform.spigot("112698")))
+                .bStatsOptions(bStatsOptions -> bStatsOptions.id(19840))
+                .registrationOptions
                 .commandsToRegister(new AirCannonCmd(this))
                 .listenersToRegister(new PlayerListener(this));
     }
