@@ -10,7 +10,7 @@ Credit for the idea/name goes to Fundy (or I guess his viewer?)! Check out his v
 
 ## Download
 
-**✅ Stable:** You can download the latest **stable** version at [Modrinth](https://modrinth.com/plugin/air-cannon), [Hangar](https://hangar.papermc.io/srnyx/AirCannon), [Spigot](https://spigotmc.org/resources/######), [Bukkit](https://dev.bukkit.org/projects/air-cannon), or [GitHub](https://github.com/srnyx/air-cannon/releases)
+**✅ Stable:** You can download the latest **stable** version at [Modrinth](https://modrinth.com/plugin/air-cannon), [Hangar](https://hangar.papermc.io/srnyx/AirCannon), [Spigot](https://spigotmc.org/resources/112698), [Bukkit](https://dev.bukkit.org/projects/air-cannon), or [GitHub](https://github.com/srnyx/air-cannon/releases)
 
 **🚧 Snapshot:** You can download the latest **snapshot** version at [actions/workflows/build.yml](https://github.com/srnyx/air-cannon/actions/workflows/build.yml)
 
