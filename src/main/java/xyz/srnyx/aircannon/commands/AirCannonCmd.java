@@ -68,9 +68,9 @@ public class AirCannonCmd implements AnnoyingCommand {
         }
 
         // give <player>
-        final Player target = Bukkit.getPlayer(sender.args[0]);
+        final Player target = Bukkit.getPlayer(sender.args[1]);
         if (target == null) {
-            sender.invalidArgumentByIndex(0);
+            sender.invalidArgumentByIndex(1);
             return;
         }
         target.getInventory().addItem(plugin.config.item);
