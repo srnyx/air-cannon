@@ -2,6 +2,7 @@ package xyz.srnyx.aircannon.listeners;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
@@ -20,6 +21,7 @@ import xyz.srnyx.annoyingapi.data.ItemData;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import static xyz.srnyx.aircannon.reflection.org.bukkit.RefWorld.WORLD_SPAWN_PARTICLE_METHOD;
@@ -76,9 +78,17 @@ public class PlayerListener extends AnnoyingListener {
             // Pull
             particleLocation.add(direction.clone().multiply(particlePower));
         }
+        final Vector velocity = direction.clone().multiply(velocityMultiplier);
+
+        // Affect nearby entities
+        final Set<EntityType> entitiesBlacklist = plugin.config.entitiesBlacklist;
+        final boolean treatBlacklistAsWhitelist = plugin.config.treatBlacklistAsWhitelist;
+        player.getNearbyEntities(5, 5, 5).stream()
+                .filter(entity -> entitiesBlacklist == null || entitiesBlacklist.contains(entity.getType()) != treatBlacklistAsWhitelist)
+                .forEach(entity -> entity.setVelocity(velocity));
 
         // Apply velocity, spawn particle, and play sound
-        player.setVelocity(direction.clone().multiply(velocityMultiplier));
+        player.setVelocity(velocity);
         if (WORLD_SPAWN_PARTICLE_METHOD != null && plugin.config.particle != null) try {
             WORLD_SPAWN_PARTICLE_METHOD.invoke(world, plugin.config.particle, particleLocation, 15, 1.5, 1.5, 1.5, 0.1);
         } catch (final IllegalAccessException | InvocationTargetException e) {

@@ -13,6 +13,18 @@ uses: 1 # per cooldown
 # Default: 1.5
 power: 1.5 # multiplier
 
+# Settings for the effect of the Air Cannon on entities
+entities:
+  # Whether to push/pull entities when using the Air Cannon
+  enabled: true
+
+  # A list of entities that should/shouldn't be affected by the Air Cannon
+  whitelist:
+    list:
+      - ITEM
+    # If true, the list above will act as a blacklist instead of a whitelist
+    act-as-blacklist: true
+
 # The sound that's played whenever the Air Cannon is used
 sound: # SOUND (read documentation)
   enabled: true
