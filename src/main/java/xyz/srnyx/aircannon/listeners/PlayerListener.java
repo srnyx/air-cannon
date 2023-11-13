@@ -22,16 +22,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static xyz.srnyx.aircannon.reflection.org.bukkit.RefParticle.PARTICLE_CLOUD;
 import static xyz.srnyx.aircannon.reflection.org.bukkit.RefWorld.WORLD_SPAWN_PARTICLE_METHOD;
 
 
 public class PlayerListener extends AnnoyingListener {
     @NotNull private final AirCannon plugin;
+    private final double particlePower;
     @Nullable private final Map<UUID, PlayerData> data;
 
     public PlayerListener(@NotNull AirCannon plugin) {
         this.plugin = plugin;
+        particlePower = plugin.config.power * 5;
         data = plugin.config.cooldown > 0 || plugin.config.uses > 0 ? new HashMap<>() : null;
     }
 
@@ -65,19 +66,21 @@ public class PlayerListener extends AnnoyingListener {
         final Location location = player.getLocation();
         final Vector direction = location.getDirection();
 
-        // Pull/push
+        // Get velocity and particle location (push/pull)
         double velocityMultiplier = plugin.config.power;
         final Location particleLocation = location.clone();
         if (action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)) {
+            // Push
             velocityMultiplier *= -1;
         } else {
-            particleLocation.add(direction.clone().multiply(plugin.config.particlePower));
+            // Pull
+            particleLocation.add(direction.clone().multiply(particlePower));
         }
 
         // Apply velocity, spawn particle, and play sound
         player.setVelocity(direction.clone().multiply(velocityMultiplier));
-        if (WORLD_SPAWN_PARTICLE_METHOD != null && PARTICLE_CLOUD != null) try {
-            WORLD_SPAWN_PARTICLE_METHOD.invoke(world, PARTICLE_CLOUD, particleLocation, 15, 1.5, 1.5, 1.5, 0.1);
+        if (WORLD_SPAWN_PARTICLE_METHOD != null && plugin.config.particle != null) try {
+            WORLD_SPAWN_PARTICLE_METHOD.invoke(world, plugin.config.particle, particleLocation, 15, 1.5, 1.5, 1.5, 0.1);
         } catch (final IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }

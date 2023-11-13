@@ -18,6 +18,11 @@ sound: # SOUND (read documentation)
   enabled: true
   sound: BLOCK_HONEY_BLOCK_PLACE
 
+# The particle(s) that are spawned when the Air Cannon is used
+particle:
+  enabled: true
+  particle: CLOUD # https://srnyx.com/docs/spigot/org/bukkit/Particle
+
 # The recipe of the Air Cannon, the 'result' is always used as the Air Cannon item
 recipe: # RECIPE (read documentation)
   # Whether the Air Cannon should be craftable (REQUIRES A RESTART)
