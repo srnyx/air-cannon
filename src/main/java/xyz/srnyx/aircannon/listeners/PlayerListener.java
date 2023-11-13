@@ -26,7 +26,7 @@ import static xyz.srnyx.aircannon.reflection.org.bukkit.RefParticle.PARTICLE_CLO
 import static xyz.srnyx.aircannon.reflection.org.bukkit.RefWorld.WORLD_SPAWN_PARTICLE_METHOD;
 
 
-public class PlayerListener implements AnnoyingListener {
+public class PlayerListener extends AnnoyingListener {
     @NotNull private final AirCannon plugin;
     @Nullable private final Map<UUID, PlayerData> data;
 

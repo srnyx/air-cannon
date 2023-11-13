@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.function.Predicate;
 
 
-public class AirCannonCmd implements AnnoyingCommand {
+public class AirCannonCmd extends AnnoyingCommand {
     @NotNull private final AirCannon plugin;
 
     public AirCannonCmd(@NotNull AirCannon plugin) {

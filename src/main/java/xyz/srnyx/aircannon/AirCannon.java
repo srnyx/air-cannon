@@ -21,9 +21,7 @@ public class AirCannon extends AnnoyingPlugin {
                         PluginPlatform.hangar(this, "srnyx"),
                         PluginPlatform.spigot("112698")))
                 .bStatsOptions(bStatsOptions -> bStatsOptions.id(19840))
-                .registrationOptions
-                .commandsToRegister(new AirCannonCmd(this))
-                .listenersToRegister(new PlayerListener(this));
+                .registrationOptions.toRegister(this, AirCannonCmd.class, PlayerListener.class);
     }
 
     @Override
