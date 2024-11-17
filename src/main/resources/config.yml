@@ -13,17 +13,13 @@ uses: 1 # per cooldown
 # Default: 1.5
 power: 1.5 # multiplier
 
-# Settings for the effect of the Air Cannon on entities
-entities:
-  # Whether to push/pull entities when using the Air Cannon
-  enabled: true
-
-  # A list of entities that should/shouldn't be affected by the Air Cannon
-  whitelist:
-    list:
-      - ITEM
-    # If true, the list above will act as a blacklist instead of a whitelist
-    act-as-blacklist: true
+# The entities to not be affected by the Air Cannon push/pull
+# Set list to [] and treat-as-whitelist to true to disable all entities
+entities-blacklist:
+  list: # https://srnyx.com/docs/spigot/org/bukkit/entity/EntityType
+    - ITEM
+  # If true, the list above will be treated as a whitelist instead of a blacklist (only entities in the list will be affected)
+  treat-as-whitelist: false
 
 # The sound that's played whenever the Air Cannon is used
 sound: # SOUND (read documentation)
@@ -35,7 +31,21 @@ particle:
   enabled: true
   particle: CLOUD # https://srnyx.com/docs/spigot/org/bukkit/Particle
 
-# The recipe of the Air Cannon, the 'result' is always used as the Air Cannon item
+# The item that represents the Air Cannon
+item:
+  material: IRON_HOE
+  name: "&f&lAir Cannon"
+  lore:
+    - "&7Right-click to boost forward"
+    - "&7Left-click to boost backward"
+  enchantments:
+    DURABILITY: 1
+  unbreakable: true
+  flags:
+    - HIDE_ENCHANTS
+    - HIDE_UNBREAKABLE
+
+# The recipe of the Air Cannon, the 'result' is overriden by the 'item' section above
 recipe: # RECIPE (read documentation)
   # Whether the Air Cannon should be craftable (REQUIRES A RESTART)
   enabled: true
@@ -48,16 +58,3 @@ recipe: # RECIPE (read documentation)
     - BDB
     - BIB
   shapeless: false
-  # This is always used as the Air Cannon item no matter if the recipe is enabled or not
-  result:
-    material: IRON_HOE
-    name: "&f&lAir Cannon"
-    lore:
-      - "&7Right-click to boost forward"
-      - "&7Left-click to boost backward"
-    enchantments:
-      DURABILITY: 1
-    unbreakable: true
-    flags:
-      - HIDE_ENCHANTS
-      - HIDE_UNBREAKABLE

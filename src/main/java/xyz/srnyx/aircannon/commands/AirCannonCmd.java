@@ -16,6 +16,8 @@ import xyz.srnyx.annoyingapi.utility.BukkitUtility;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Predicate;
 
 
@@ -54,10 +56,6 @@ public class AirCannonCmd extends AnnoyingCommand {
             sender.invalidArgumentByIndex(0);
             return;
         }
-        if (plugin.config.item == null) {
-            new AnnoyingMessage(plugin, "no-item").send(sender);
-            return;
-        }
 
         // give
         if (sender.args.length == 1) {
@@ -68,20 +66,20 @@ public class AirCannonCmd extends AnnoyingCommand {
         }
 
         // give <player>
-        final Player target = Bukkit.getPlayer(sender.args[1]);
-        if (target == null) {
-            sender.invalidArgumentByIndex(1);
-            return;
-        }
+        final Player target = sender.getArgumentOptional(1, Bukkit::getPlayer).orElse(null);
+        if (target == null) return;
         target.getInventory().addItem(plugin.config.item);
         new AnnoyingMessage(plugin, "give.other")
                 .replace("%player%", target.getName())
                 .send(sender);
     }
 
+    @NotNull private static final Set<String> ARG_1 = new HashSet<>(Arrays.asList("give", "reload"));
+
     @Override @Nullable
     public Collection<String> onTabComplete(@NotNull AnnoyingSender sender) {
-        if (sender.args.length == 1) return Arrays.asList("reload", "give");
-        return sender.argEquals(0, "give") ? BukkitUtility.getOnlinePlayerNames() : null;
+        final int length = sender.args.length;
+        if (length == 1) return ARG_1;
+        return length == 2 && sender.argEquals(0, "give") ? BukkitUtility.getOnlinePlayerNames() : null;
     }
 }

@@ -8,5 +8,5 @@ plugins {
     id("com.gradleup.shadow") version "8.3.5"
 }
 
-setupAnnoyingAPI("4.3.0", "xyz.srnyx", "1.0.1", "Fundy's Air Cannon item but as a plugin for your server!")
+setupAnnoyingAPI("5.1.3", "xyz.srnyx", "1.1.0", "Fundy's Air Cannon item but as a plugin for your server!")
 spigotAPI("1.8.8")

@@ -39,8 +39,6 @@ error:
 
 reload: "%prefix%Reloaded the plugin!@@%p%%command%@@%command%"
 
-no-item: "%prefix%%pe%There is no item configured!@@%pe%%command%@@%command%"
-
 give:
   self: "%prefix%You have been given an Air Cannon!@@%p%%command%@@%command%"
   other: "%prefix%%s%%player%%p% has been given an Air Cannon!@@%p%%command%@@%command%" # %player%
