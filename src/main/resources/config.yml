@@ -17,7 +17,7 @@ power: 1.5 # multiplier
 # Set list to [] and treat-as-whitelist to true to disable all entities
 entities-blacklist:
   list: # https://srnyx.com/docs/spigot/org/bukkit/entity/EntityType
-    - ITEM
+    - PLAYER
   # If true, the list above will be treated as a whitelist instead of a blacklist (only entities in the list will be affected)
   treat-as-whitelist: false
 
