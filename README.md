@@ -17,3 +17,9 @@ Credit for the idea/name goes to Fundy (or I guess his viewer?)! Check out his v
 # Wiki
 
 For all information about the plugin (commands, permissions, etc...) please see the wiki at [github.com/srnyx/air-cannon/wiki](https://github.com/srnyx/air-cannon/wiki)
+
+### not sponsors, just cool stuff :)
+
+[![Lilypad server hosting](https://srnyx.com/assets/banners/lilypad.png)](https://srnyx.com/lilypad?utm_medium=listing&utm_content=lilypad&utm_source=github&utm_campaign=air-cannon)
+[![Review me on TrustPilot!](https://srnyx.com/assets/banners/reviewme.png)](https://srnyx.com/review?utm_medium=listing&utm_content=review&utm_source=github&utm_campaign=air-cannon)
+[![Host events on Event Alerts](https://srnyx.com/assets/banners/eventalerts.png)](https://eventalerts.gg?utm_medium=listing&utm_content=eventalerts&utm_source=github&utm_campaign=air-cannon)

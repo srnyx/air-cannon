@@ -1,31 +1,22 @@
 package xyz.srnyx.aircannon.listeners;
 
+import com.cryptomorin.xseries.XEntityType;
 import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
-
 import org.jetbrains.annotations.NotNull;
-
 import xyz.srnyx.aircannon.AirCannon;
-
 import xyz.srnyx.annoyingapi.AnnoyingListener;
-import xyz.srnyx.annoyingapi.AnnoyingPlugin;
 import xyz.srnyx.annoyingapi.data.ItemData;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.logging.Level;
-
-import static xyz.srnyx.aircannon.reflection.org.bukkit.RefWorld.WORLD_SPAWN_PARTICLE_METHOD;
 
 
 public class PlayerListener extends AnnoyingListener {
@@ -55,7 +46,7 @@ public class PlayerListener extends AnnoyingListener {
             final PlayerData playerData = data.computeIfAbsent(player.getUniqueId(), uuid -> new PlayerData(now, plugin.config.uses));
             if (now >= playerData.cooldown) {
                 playerData.uses = plugin.config.uses;
-                playerData.cooldown = now + plugin.config.cooldown;
+                playerData.cooldown = now + plugin.config.cooldown.toMillis();
             }
             if (playerData.uses <= 0) return;
             playerData.uses--;
@@ -75,30 +66,25 @@ public class PlayerListener extends AnnoyingListener {
         } else {
             // Pull
             velocityMultiplier = 1;
-            particleLocation = location.clone().add(direction.clone().multiply(plugin.config.particlePower)); // Particle in front of player
+            particleLocation = location.clone().add(direction.clone().multiply(plugin.config.power * 5)); // Particle in front of player
         }
         final Vector velocity = direction.clone().multiply(plugin.config.power * velocityMultiplier);
 
         // Affect nearby entities
-        final Set<EntityType> blacklist = plugin.config.entitiesBlacklist.list;
-        final boolean treatAsWhitelist = plugin.config.entitiesBlacklist.treatAsWhitelist;
+        final Set<XEntityType> blacklist = plugin.config.entities_blacklist.list;
+        final boolean treatAsWhitelist = plugin.config.entities_blacklist.treat_as_whitelist;
         player.getNearbyEntities(5, 5, 5).stream()
-                .filter(entity -> treatAsWhitelist == blacklist.contains(entity.getType()))
+                .filter(entity -> treatAsWhitelist == blacklist.contains(XEntityType.of(entity.getType())))
                 .forEach(entity -> entity.setVelocity(velocity));
 
         // Apply velocity to player
         player.setVelocity(velocity);
 
         // Spawn particle
-        final World world = player.getWorld();
-        if (WORLD_SPAWN_PARTICLE_METHOD != null && plugin.config.particle != null) try {
-            WORLD_SPAWN_PARTICLE_METHOD.invoke(world, plugin.config.particle, particleLocation, 15, 1.5, 1.5, 1.5, 0.1);
-        } catch (final IllegalAccessException | InvocationTargetException e) {
-            AnnoyingPlugin.log(Level.WARNING, "Failed to spawn particle", e);
-        }
+        if (plugin.config.particle.enabled) plugin.config.particle.particle.spawn(particleLocation, 15, 1.5, 1.5, 1.5, 0.1);
 
         // Play sound
-        if (plugin.config.sound != null) plugin.config.sound.play(world, location);
+        if (plugin.config.sound.enabled) plugin.config.sound.sound.play(location);
     }
 
     private static class PlayerData {

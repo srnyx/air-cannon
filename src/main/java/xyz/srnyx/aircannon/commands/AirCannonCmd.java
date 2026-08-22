@@ -2,16 +2,10 @@ package xyz.srnyx.aircannon.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import xyz.srnyx.aircannon.AirCannon;
-
-import xyz.srnyx.annoyingapi.AnnoyingPlugin;
-import xyz.srnyx.annoyingapi.command.AnnoyingCommand;
 import xyz.srnyx.annoyingapi.command.AnnoyingSender;
-import xyz.srnyx.annoyingapi.message.AnnoyingMessage;
 import xyz.srnyx.annoyingapi.utility.BukkitUtility;
 
 import java.util.Arrays;
@@ -21,21 +15,9 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 
-public class AirCannonCmd extends AnnoyingCommand {
-    @NotNull private final AirCannon plugin;
-
+public class AirCannonCmd extends xyz.srnyx.aircannon.commands.generated.AircannonCmdGen {
     public AirCannonCmd(@NotNull AirCannon plugin) {
-        this.plugin = plugin;
-    }
-
-    @Override @NotNull
-    public AnnoyingPlugin getAnnoyingPlugin() {
-        return plugin;
-    }
-
-    @Override @NotNull
-    public String getPermission() {
-        return "aircannon.give";
+        super(plugin);
     }
 
     @Override @NotNull
@@ -48,7 +30,7 @@ public class AirCannonCmd extends AnnoyingCommand {
         // reload
         if (sender.argEquals(0, "reload")) {
             plugin.reloadPlugin();
-            new AnnoyingMessage(plugin, "reload").send(sender);
+            plugin.getMessages().get().reload.newMessage().send(sender);
             return;
         }
 
@@ -61,7 +43,7 @@ public class AirCannonCmd extends AnnoyingCommand {
         if (sender.args.length == 1) {
             if (!sender.checkPlayer()) return;
             sender.getPlayer().getInventory().addItem(plugin.config.item);
-            new AnnoyingMessage(plugin, "give.self").send(sender);
+            plugin.getMessages().get().give.self.newMessage().send(sender);
             return;
         }
 
@@ -69,7 +51,7 @@ public class AirCannonCmd extends AnnoyingCommand {
         final Player target = sender.getArgumentOptional(1, Bukkit::getPlayer).orElse(null);
         if (target == null) return;
         target.getInventory().addItem(plugin.config.item);
-        new AnnoyingMessage(plugin, "give.other")
+        plugin.getMessages().get().give.other.newMessage()
                 .replace("%player%", target.getName())
                 .send(sender);
     }
