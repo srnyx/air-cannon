@@ -57,6 +57,11 @@ public class AirConfig extends RootConfig {
     public double power = 1.5;
 
     @Comment
+    @Comment("Whether a player crouching will 'ground them' (only nearby entities are pushed/pulled)")
+    @Stat
+    public boolean crouch_grounding = false;
+
+    @Comment
     @Comment("The entities to not (or to only) be affected by the Air Cannon push/pull")
     @Comment("Set list to [] and treat_as_whitelist to true to disable all entities")
     @NotNull public EntitiesBlacklist entities_blacklist = new EntitiesBlacklist(this);
