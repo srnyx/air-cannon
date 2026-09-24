@@ -1,6 +1,6 @@
 plugins {
     java
-    id("xyz.srnyx.gradle-galaxy") version "597dae2"
+    id("xyz.srnyx.gradle-galaxy") version "4.0.0"
     id("com.gradleup.shadow") version "9.6.1"
     id("me.modmuss50.mod-publish-plugin") version "675051c"
     id("io.papermc.hangar-publish-plugin") version "0.1.4"
@@ -13,7 +13,7 @@ description = "Fundy's Air Cannon item but as a plugin for your server!"
 galaxy {
     minecraft {
         spigotAPI("1.8.8")
-        annoyingAPI("c5c9987")
+        annoyingAPI("6.0.1")
 
         pluginYml {
             developerData(SRNYX)
