@@ -78,7 +78,10 @@ public class PlayerListener extends AnnoyingListener {
                 .forEach(entity -> entity.setVelocity(velocity));
 
         // Apply velocity to player
-        player.setVelocity(velocity);
+        // Only if crouch_grounding false or player not crouching
+        if (!plugin.config.crouch_grounding || !player.isSneaking()) {
+            player.setVelocity(velocity);
+        }
 
         // Spawn particle
         if (plugin.config.particle.enabled) plugin.config.particle.particle.spawn(particleLocation, 15, 1.5, 1.5, 1.5, 0.1);
