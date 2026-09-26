@@ -57,14 +57,7 @@ public class AirConfig extends RootConfig {
     public double power = 1.5;
 
     @Comment
-    @Comment("Whether a player crouching will 'ground them' (only nearby entities are pushed/pulled)")
-    @Stat
-    public boolean crouch_grounding = false;
-
-    @Comment
-    @Comment("The entities to not (or to only) be affected by the Air Cannon push/pull")
-    @Comment("Set list to [] and treat_as_whitelist to true to disable all entities")
-    @NotNull public EntitiesBlacklist entities_blacklist = new EntitiesBlacklist(this);
+    @NotNull public Entities entities = new Entities(this);
 
     @Comment
     @Comment("The sound that's played whenever the Air Cannon is used")
@@ -112,17 +105,39 @@ public class AirConfig extends RootConfig {
         recipe = new RecipeConfig(this);
     }
 
-    public static class EntitiesBlacklist extends SubConfig<AirConfig, AirConfig> {
-        public EntitiesBlacklist(@org.jetbrains.annotations.NotNull AirConfig defaultsParent) {
+    public static class Entities extends SubConfig<AirConfig, AirConfig> {
+        public Entities(@org.jetbrains.annotations.NotNull AirConfig defaultsParent) {
             super(defaultsParent);
         }
 
-        @Comment("https://srnyx.com/docs/spigot/org/bukkit/entity/EntityType")
-        @NotNull public Set<XEntityType> list = Set.of(XEntityType.PLAYER);
+        @Comment("Whether a player crouching will 'ground them' (only nearby entities are pushed/pulled)")
+        @Stat
+        public boolean crouch_grounding = false;
 
         @Comment
-        @Comment("If true, the list above will be treated as a whitelist instead of a blacklist (only entities in the list will be affected)")
-        public boolean treat_as_whitelist = false;
+        @Comment("Whether the Air Cannon should push/pull entities in the opposite direction (player's direction)")
+        @Comment("true = entities are pushed/pulled in the opposite direction of the player's velocity")
+        @Comment("false = entities are pushed/pulled in the same direction as the player's velocity")
+        @Stat
+        public boolean opposite_direction = false;
+
+        @Comment
+        @Comment("The entities to not (or to only) be affected by the Air Cannon push/pull")
+        @Comment("Set list to [] and treat_as_whitelist to true to disable all entities")
+        @NotNull public Blacklist blacklist = new Blacklist(this);
+
+        public static class Blacklist extends SubConfig<AirConfig, Entities> {
+            public Blacklist(@org.jetbrains.annotations.NotNull Entities defaultsParent) {
+                super(defaultsParent);
+            }
+
+            @Comment("https://srnyx.com/docs/spigot/org/bukkit/entity/EntityType")
+            @NotNull public Set<XEntityType> list = Set.of(XEntityType.PLAYER);
+
+            @Comment
+            @Comment("If true, the list above will be treated as a whitelist instead of a blacklist (only entities in the list will be affected)")
+            public boolean treat_as_whitelist = false;
+        }
     }
 
     public static class Sound extends SubConfig<AirConfig, AirConfig> {

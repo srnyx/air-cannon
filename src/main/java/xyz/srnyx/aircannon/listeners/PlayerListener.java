@@ -70,16 +70,20 @@ public class PlayerListener extends AnnoyingListener {
         }
         final Vector velocity = direction.clone().multiply(plugin.config.power * velocityMultiplier);
 
+        // Get entity velocity
+        final Vector entityVelocity = velocity.clone();
+        if (plugin.config.entities.opposite_direction) entityVelocity.multiply(-1);
+
         // Affect nearby entities
-        final Set<XEntityType> blacklist = plugin.config.entities_blacklist.list;
-        final boolean treatAsWhitelist = plugin.config.entities_blacklist.treat_as_whitelist;
+        final Set<XEntityType> blacklist = plugin.config.entities.blacklist.list;
+        final boolean treatAsWhitelist = plugin.config.entities.blacklist.treat_as_whitelist;
         player.getNearbyEntities(5, 5, 5).stream()
                 .filter(entity -> treatAsWhitelist == blacklist.contains(XEntityType.of(entity.getType())))
-                .forEach(entity -> entity.setVelocity(velocity));
+                .forEach(entity -> entity.setVelocity(entityVelocity));
 
         // Apply velocity to player
         // Only if crouch_grounding false or player not crouching
-        if (!plugin.config.crouch_grounding || !player.isSneaking()) {
+        if (!plugin.config.entities.crouch_grounding || !player.isSneaking()) {
             player.setVelocity(velocity);
         }
 
