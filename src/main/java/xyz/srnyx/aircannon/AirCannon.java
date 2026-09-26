@@ -3,6 +3,7 @@ package xyz.srnyx.aircannon;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import xyz.srnyx.aircannon.config.AirConfig;
+import xyz.srnyx.aircannon.config.migration.AC0001_Entities_block;
 import xyz.srnyx.aircannon.messages.ACMessagesProvider;
 import xyz.srnyx.aircannon.stats.FastStats;
 import xyz.srnyx.annoyingapi.AnnoyingPlugin;
@@ -31,7 +32,9 @@ public class AirCannon extends AnnoyingPlugin {
     public void load() {
         config = configLoader.build(builder -> builder
                 .config(new AirConfig(this))
-                .internalStateMigrations(new NestedSoundMigration("sound")));
+                .internalStateMigrations(
+                        new NestedSoundMigration("sound"),
+                        new AC0001_Entities_block()));
     }
 
     @Override
